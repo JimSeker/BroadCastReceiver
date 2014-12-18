@@ -1,5 +1,6 @@
 BroadCastReceiver examples
 =================
+eclipse/ is the examples for use in eclipse. This is no longer updated. The rest of the examples are in Android studio format.
 
 BroadCastDemo1: Simple implementation of a receiver with a static and dynamic registered intent-filter
 
@@ -12,4 +13,4 @@ BroadcastBoot: Receives a broadcast on boot, that starts a service.
 
 
 
-android Broadcast Receiver examples
+These are example code for University of Wyoming, Cosc 4730 Mobile Programming course.  The examples are for Android.
