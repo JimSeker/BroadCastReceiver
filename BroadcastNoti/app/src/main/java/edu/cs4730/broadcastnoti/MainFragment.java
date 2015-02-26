@@ -17,7 +17,11 @@ public class MainFragment extends Fragment {
 
 	TextView logger = null;
 	String myText = "";
-	
+
+    public MainFragment() {
+        // Required empty public constructor
+        myText = "";
+    }
 	public MainFragment(String item) {
 		// Required empty public constructor
 		myText = item;

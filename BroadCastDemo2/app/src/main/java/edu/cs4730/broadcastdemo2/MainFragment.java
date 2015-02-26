@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * 
+ *  this app will need to be run on emulator to test the varying pieces
+ *  unless you can charge and discarge your battery very quickly.
+ *  but on a device plugin it in/unplug it to see no charging messages.
  */
 public class MainFragment extends Fragment {
 
@@ -18,7 +20,8 @@ public class MainFragment extends Fragment {
 	public MainFragment() {
 		// Required empty public constructor
 	}
-	public MainFragment(int status) {
+
+    public MainFragment(int status) {
 		mStatus = status;
 	}
 	

@@ -7,11 +7,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends ActionBarActivity {
 	public static final String ACTION = "edu.cs4730.bcr.noti";
 	
 	MainFragment mFragment = null;
@@ -63,7 +63,7 @@ public class MainActivity extends FragmentActivity {
 		//---sets the alarm to trigger---
 		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), contentIntent);
 		
-		//sendBroadcast(notificationIntent);//let see if it works...
+		//sendBroadcast(notificationIntent);//let's see if it works... without the alarm.
 		finish();  //exit the app.
 	}
 }

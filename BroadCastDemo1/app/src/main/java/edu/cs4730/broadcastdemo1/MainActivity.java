@@ -2,8 +2,7 @@ package edu.cs4730.broadcastdemo1;
 
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 /*
@@ -14,7 +13,7 @@ import android.util.Log;
  * action one is static registered in the manifest file.
  */
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends ActionBarActivity {
 
 	//declare the intent names here, except if change ACTION1, fix it in AndroidManifest.xml as well.
 	public static final String ACTION1 = "edu.cs4730.bcr.mystaticevent";
