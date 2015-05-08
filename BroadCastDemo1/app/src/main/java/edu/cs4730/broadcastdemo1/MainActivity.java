@@ -2,7 +2,7 @@ package edu.cs4730.broadcastdemo1;
 
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 /*
@@ -13,7 +13,7 @@ import android.util.Log;
  * action one is static registered in the manifest file.
  */
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
 	//declare the intent names here, except if change ACTION1, fix it in AndroidManifest.xml as well.
 	public static final String ACTION1 = "edu.cs4730.bcr.mystaticevent";
