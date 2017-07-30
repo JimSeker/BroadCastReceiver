@@ -5,15 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+/*
+ * this receiver get the on boot completed message then starts the service.
+ * it's registered in the androidmanifest file.
+ */
 public class MyReceiver extends BroadcastReceiver {
 
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)){
-	    //boot has completed, now time to start our background service.  
-			Log.v("MyReceiver", "Got the boot one!");
-			Intent i = new Intent(context, MyService.class);
-			context.startService(i);
-		}
-	}
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+            //boot has completed, now time to start our background service.
+            Log.v("MyReceiver", "Got the boot one!");
+            Intent i = new Intent(context, MyService.class);
+            context.startService(i);
+        }
+    }
 }

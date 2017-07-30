@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 /**
  *  this app will need to be run on emulator to test the varying pieces
- *  unless you can charge and discarge your battery very quickly.
+ *  unless you can charge and discharge your battery very quickly.
  *  but on a device plugin it in/unplug it to see no charging messages.
  */
 public class MainFragment extends Fragment {
