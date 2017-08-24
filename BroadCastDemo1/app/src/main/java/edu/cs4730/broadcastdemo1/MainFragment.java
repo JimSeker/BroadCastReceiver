@@ -32,6 +32,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.ACTION1);
+                i.setPackage("edu.cs4730.broadcastdemo1"); //in API 26, it must be explicit now.
                 //since it's registered as a global (in the manifest), use sendBroadCast
                 //LocalBroadcastManager.getInstance(getContext()).sendBroadcast(i);
                 getActivity().sendBroadcast(i);
