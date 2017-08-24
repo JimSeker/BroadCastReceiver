@@ -1,5 +1,6 @@
 package edu.cs4730.broadcastboot;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * All this fragment does is display information.  The bulk of the example is in mainActivity and myService.
+ * All this fragment does is display information.
+ * <p>
+ * It also has a button to "jump start" the process.  Basically the first message.
  */
 
 public class MainFragment extends Fragment {
@@ -43,15 +46,19 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_main, container, false);
-        logger = (TextView) myView.findViewById(R.id.textView2);
-        settext(info);
-        return myView;
-    }
-
-    public void settext(String i) {
-        info = i;
+        logger = myView.findViewById(R.id.textView2);
         logger.setText(info);
 
+        myView.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.ACTION);
+                intent.setPackage("edu.cs4730.broadcastboot"); //in API 26, it must be explicit now.
+                getActivity().sendBroadcast(intent);
+                getActivity().finish();
+            }
+        });
+        return myView;
     }
 
 }
