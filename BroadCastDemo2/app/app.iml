@@ -98,6 +98,8 @@
     <orderEntry type="library" exported="" name="appcompat-v7-26.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-media-compat-26.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-compat-26.0.1" level="project" />
+    <orderEntry type="library" exported="" name="constraint-layout-solver-1.0.2" level="project" />
+    <orderEntry type="library" exported="" name="constraint-layout-1.0.2" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-26.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-26.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-vector-drawable-26.0.1" level="project" />
