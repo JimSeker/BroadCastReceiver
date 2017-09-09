@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, mFragment).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, mFragment).commit();
         }
 
         createchannel();
