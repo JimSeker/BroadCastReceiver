@@ -14,28 +14,28 @@ import android.util.Log;
 import java.util.Calendar;
 import java.util.Random;
 
-/*
+/**
  * this receiver get the on boot completed message then starts the service.
  * it's registered in the androidmanifest file.
  */
 public class MyReceiver extends BroadcastReceiver {
 
-    String TAG="MyReceiver";
+    String TAG = "MyReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        int NotiID=1;
+        int NotiID = 1;
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             //boot has completed, now time to start our background service.
             Log.wtf(TAG, "Got the boot one!");
-            setalarm(context, 2,NotiID);  //NotiID is initialize to 1, which is the start.
+            setalarm(context, 2, NotiID);  //NotiID is initialize to 1, which is the start.
         } else if (intent.getAction().equals(MainActivity.ACTION)) {  //my custom intent
-            Bundle extras =intent.getExtras();
+            Bundle extras = intent.getExtras();
             if (extras != null) {
                 NotiID = extras.getInt("notiid");
             }
             sendNoti(context, NotiID);
-            setalarm(context, 2, NotiID+1);  //use the next notification ID number.
+            setalarm(context, 2, NotiID + 1);  //use the next notification ID number.
         }
     }
 
@@ -96,14 +96,14 @@ public class MyReceiver extends BroadcastReceiver {
 
         //create the notification
         Notification notif = new NotificationCompat.Builder(context, MainActivity.id)
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setWhen(System.currentTimeMillis()) //When the event occurred, now, since noti are stored by time.
-                .setContentTitle("New headline!") //Title message top row.
-                .setContentText(info) //message when looking at the notification, second row
-                .setContentIntent(contentIntent) //what activity to open.
-                .setChannelId(MainActivity.id)
-                .setAutoCancel(true) //allow auto cancel when pressed.
-                .build(); //finally build and return a Notification.
+            .setSmallIcon(R.drawable.ic_launcher)
+            .setWhen(System.currentTimeMillis()) //When the event occurred, now, since noti are stored by time.
+            .setContentTitle("New headline!") //Title message top row.
+            .setContentText(info) //message when looking at the notification, second row
+            .setContentIntent(contentIntent) //what activity to open.
+            .setChannelId(MainActivity.id)
+            .setAutoCancel(true) //allow auto cancel when pressed.
+            .build(); //finally build and return a Notification.
         //Show the notification
         mManager.notify(1, notif);  //and if we want different notifications, use notiID here instead of 1.
     }

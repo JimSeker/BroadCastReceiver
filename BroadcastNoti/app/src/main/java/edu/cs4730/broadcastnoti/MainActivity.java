@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 
-
 public class MainActivity extends AppCompatActivity {
     public static final String ACTION = "edu.cs4730.bcr.noti";
     public static String id = "test_channel_01";
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         mFragment = MainFragment.newInstance(info);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, mFragment).commit();
+                .add(R.id.container, mFragment).commit();
         }
         createchannel();
     }
@@ -76,14 +75,14 @@ public class MainActivity extends AppCompatActivity {
         finish();  //exit the app.
     }
 
-    /*
- * for API 26+ create notification channels
-*/
+    /**
+     * for API 26+ create notification channels
+     */
     private void createchannel() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel mChannel = new NotificationChannel(id,
-                    getString(R.string.channel_name),  //name of the channel
-                    NotificationManager.IMPORTANCE_DEFAULT);   //importance level
+                getString(R.string.channel_name),  //name of the channel
+                NotificationManager.IMPORTANCE_DEFAULT);   //importance level
             //important level: default is is high on the phone.  high is urgent on the phone.  low is medium, so none is low?
             // Configure the notification channel.
             mChannel.setDescription(getString(R.string.channel_description));

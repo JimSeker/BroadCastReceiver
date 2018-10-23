@@ -9,12 +9,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-/*
+/**
  * This example sets a receiver to a boot message to a receiver.
  * the receiver then sets an alarm for X minutes.  X is set in the receiver.
- *
+ * <p>
  * services are hard to keep running in the background in API 26, so alarms were used for this
- * example.   It should be a scheduled job, when I have time to learn ithem.
+ * example.   It should be a scheduled job, when I have time to learn them.
  */
 
 public class MainActivity extends AppCompatActivity {
@@ -40,24 +40,24 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, mFragment).commit();
+                .add(R.id.container, mFragment).commit();
         } else {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, mFragment).commit();
+                .replace(R.id.container, mFragment).commit();
         }
 
         createchannel();
     }
 
     /*
-    * for API 26+ create notification channels
-    */
+     * for API 26+ create notification channels
+     */
     private void createchannel() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel mChannel = new NotificationChannel(id,
-                    getString(R.string.channel_name),  //name of the channel
-                    NotificationManager.IMPORTANCE_DEFAULT);   //importance level
+                getString(R.string.channel_name),  //name of the channel
+                NotificationManager.IMPORTANCE_DEFAULT);   //importance level
             //important level: default is is high on the phone.  high is urgent on the phone.  low is medium, so none is low?
             // Configure the notification channel.
             mChannel.setDescription(getString(R.string.channel_description));

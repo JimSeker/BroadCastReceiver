@@ -17,8 +17,11 @@ import android.widget.TextView;
  * unless you can charge and discharge your battery very quickly.
  * but on a device plugin it in/unplug it to see no charging messages.
  * <p>
- * In AIP 25 and below, the broadcast receiver could be static declared in the manifest.xml file
+ * In API 25 and below, the broadcast receiver could be static declared in the manifest.xml file
  * but in API 26+ the implicit broadcast are no longer allowed.
+ * <p>
+ * Most of the battery charging info permissions have been moved to the system level.
+ * a normal app can know if it is charging or on battery, but not the level of the battery.
  */
 public class MainFragment extends Fragment {
 
@@ -63,15 +66,15 @@ public class MainFragment extends Fragment {
     }
 
 
-	/*
+    /**
      * To test this on the emulator, remember to telnet to the emulator
-    * commands:
-    * power ac off      phone is unplugged
-    * power ac on       phone is plugged in/charging
-    * power capacity  15    low (when unplugged)
-    * power capacity 30     okay.. (when plugged in and was low)
-    * power capacity 100   full charge.
-    */
+     * commands:
+     * power ac off      phone is unplugged
+     * power ac on       phone is plugged in/charging
+     * power capacity  15    low (when unplugged)
+     * power capacity 30     okay.. (when plugged in and was low)
+     * power capacity 100   full charge.
+     */
 
     public class MyReceiver extends BroadcastReceiver {
         public MyReceiver() {

@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-/*
+/**
  * This is implementation of the an earlier example, but new uses a receiver instead of a activity
  * so a activity->alarm manager -> receiver -> notification -> activity
  * 

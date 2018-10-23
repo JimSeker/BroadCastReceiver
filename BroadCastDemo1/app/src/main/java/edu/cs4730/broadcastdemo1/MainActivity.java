@@ -6,7 +6,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-/*
+/**
  * A simple demo of broadcast receiver and custom intent.
  * The fragment has the code to send the broadcast.
  * 
