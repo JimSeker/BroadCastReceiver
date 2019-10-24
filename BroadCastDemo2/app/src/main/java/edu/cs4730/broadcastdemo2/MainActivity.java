@@ -1,7 +1,7 @@
 package edu.cs4730.broadcastdemo2;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Nothing to see here.  Just launchers the fragment.
