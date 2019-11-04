@@ -2,8 +2,9 @@ package edu.cs4730.broadcastdemo1;
 
 import android.content.IntentFilter;
 import android.os.Bundle;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import android.util.Log;
 
 /**
