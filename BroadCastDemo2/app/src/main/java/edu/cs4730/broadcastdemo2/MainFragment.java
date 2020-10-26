@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
@@ -42,7 +43,7 @@ public class MainFragment extends Fragment {
         myIF.addAction("android.intent.action.ACTION_POWER_DISCONNECTED");
         myIF.addAction("android.intent.action.BATTERY_LOW");
         myIF.addAction("android.intent.action.BATTERY_OKAY");
-        getActivity().registerReceiver(mReceiver, myIF);
+        getContext().registerReceiver(mReceiver, myIF);
         Log.v(TAG, "receiver should be registered");
     }
 
@@ -50,7 +51,7 @@ public class MainFragment extends Fragment {
     public void onPause() {  //or onDestory()
         // Unregister since the activity is not visible.
 
-        getActivity().unregisterReceiver(mReceiver);
+        getContext().unregisterReceiver(mReceiver);
         Log.v(TAG, "receiver should be unregistered");
         super.onPause();
 
@@ -62,6 +63,29 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_main, container, false);
         logger = myView.findViewById(R.id.textView1);
+
+        //manual check.
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = getContext().registerReceiver(null, ifilter);
+        int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+            status == BatteryManager.BATTERY_STATUS_FULL;
+
+        int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+        float batteryPct = level * 100 / (float)scale;
+
+        if (isCharging) {
+            logger.setText("status is Charging");
+            // How are we charging?
+            int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+            boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
+            if (usbCharge) logger.append("\n via the usb chargerbattery at "+ batteryPct);
+            boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+            if (acCharge) logger.append("\n via the AC chargerbattery at "+ batteryPct);
+        } else {
+            logger.setText("status is not Charging.  battery at "+ batteryPct);
+        }
         return myView;
     }
 
@@ -85,21 +109,26 @@ public class MainFragment extends Fragment {
 
             Log.wtf("myReceiver", "received an intent");
             String info = "\n something wrong.";
+            int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+            int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+            float batteryPct = level * 100 / (float)scale;
+
             int mStatus = 0;
             if (intent.getAction().equals(Intent.ACTION_BATTERY_LOW)) {  //battery is low!
-                info = "\n batter low. should shut down things.";
+
+                info = "\n batter low. should shut down things. battery at " + batteryPct;
                 mStatus = 1;
                 Log.v("myReceiver", "battery low");
             } else if (intent.getAction().equals(Intent.ACTION_BATTERY_OKAY)) {  //battery is now ok!
-                info = "\n battery Okay.  ";
+                info = "\n battery Okay.  " + batteryPct;
                 mStatus = 2;
                 Log.v("myReceiver", "battery okay");
             } else if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {  //battery is charging.
-                info = "\n Power connected, so phone is charging.";
+                info = "\n Power connected, so phone is charging." + batteryPct;
                 mStatus = 3;
                 Log.v("myReceiver", "ac on");
             } else if (intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED)) {  //power has been disconnected.
-                info = "\n Power disconnected.";
+                info = "\n Power disconnected." + batteryPct;
                 mStatus = 4;
                 Log.v("myReceiver", "ac off");
             }
