@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.cs4730.broadcastdemo2">
     
-   	<uses-permission android:name="android.permission.BATTERY_STATS" />
 
     <application
         android:allowBackup="true"

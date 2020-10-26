@@ -83,7 +83,7 @@ public class MainFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            Log.v("myReceiver", "received an intent");
+            Log.wtf("myReceiver", "received an intent");
             String info = "\n something wrong.";
             int mStatus = 0;
             if (intent.getAction().equals(Intent.ACTION_BATTERY_LOW)) {  //battery is low!
