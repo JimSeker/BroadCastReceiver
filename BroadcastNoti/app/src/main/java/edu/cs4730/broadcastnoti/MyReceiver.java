@@ -30,7 +30,7 @@ public class MyReceiver extends BroadcastReceiver {
 			// the notification---
 			Intent notificationIntent = new Intent(context, MainActivity.class);
 			notificationIntent.putExtra("mytype", "2 minutes later?");
-			PendingIntent contentIntent = PendingIntent.getActivity(context, notifID, notificationIntent, 0);
+			PendingIntent contentIntent = PendingIntent.getActivity(context, notifID, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 			//create the notification
 			Notification notif = new NotificationCompat.Builder(context, MainActivity.id)
 			.setSmallIcon(R.drawable.ic_launcher)

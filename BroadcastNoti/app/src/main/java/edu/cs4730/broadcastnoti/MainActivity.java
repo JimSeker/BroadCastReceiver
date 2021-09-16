@@ -13,7 +13,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 
-import static android.app.PendingIntent.FLAG_IMMUTABLE;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Note there is only one difference in this code from the notificationdemo code.  and it's
         //getBroadcast, instead getActivity..
-        PendingIntent contentIntent = PendingIntent.getBroadcast(MainActivity.this, NotID, notificationIntent, FLAG_IMMUTABLE);
+        PendingIntent contentIntent = PendingIntent.getBroadcast(MainActivity.this, NotID, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
         Log.i("MainFragment", "Set alarm, I hope");
         //---sets the alarm to trigger---
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), contentIntent);
