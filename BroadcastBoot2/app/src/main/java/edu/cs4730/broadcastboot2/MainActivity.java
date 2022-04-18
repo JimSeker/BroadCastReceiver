@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Color;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import android.os.Bundle;
 import android.view.View;
@@ -37,12 +39,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 //normally this intent should have something, like data...
-                MyJobIntentService.enqueueWork(getApplicationContext(), intent);
+                OneTimeWorkRequest runWork = new OneTimeWorkRequest.Builder(myWorker.class)
+                    .build();
+                WorkManager.getInstance(getApplicationContext()).enqueue(runWork);
             }
         });
         createchannel();
     }
-
 
     /**
      * for API 26+ create notification channels
