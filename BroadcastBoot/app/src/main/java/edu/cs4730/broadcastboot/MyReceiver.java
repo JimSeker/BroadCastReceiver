@@ -56,7 +56,7 @@ public class MyReceiver extends BroadcastReceiver {
         Intent notificationIntent = new Intent(MainActivity.ACTION);
         notificationIntent.setPackage("edu.cs4730.broadcastboot"); //in API 26, it must be explicit now.
         notificationIntent.putExtra("notiid", notiID);
-        PendingIntent contentIntent = PendingIntent.getBroadcast(context, notiID, notificationIntent, 0);
+        PendingIntent contentIntent = PendingIntent.getBroadcast(context, notiID, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
         Log.i(TAG, "Set alarm, I hope");
         //---sets the alarm to trigger---
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), contentIntent);
@@ -92,7 +92,7 @@ public class MyReceiver extends BroadcastReceiver {
 
         notificationIntent.putExtra("mText", info);
 
-        PendingIntent contentIntent = PendingIntent.getActivity(context, notiID, notificationIntent, 0);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, notiID, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
         //create the notification
         Notification notif = new NotificationCompat.Builder(context, MainActivity.id)

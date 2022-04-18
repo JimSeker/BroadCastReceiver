@@ -1,11 +1,13 @@
 package edu.cs4730.broadcastdemo1;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.util.Log;
+import android.view.View;
 
 /**
  * A simple demo of broadcast receiver and custom intent.
@@ -13,6 +15,9 @@ import android.util.Log;
  * 
  * this code will register a dynamic intent-filter for Action2
  * action one is static registered in the manifest file.
+ *
+ * Note, the local broadcast receiver is deprecated.  Instead you should be using a viewmodel with observers.
+ * but it still works, so the example will continue.
  */
 
 public class MainActivity extends AppCompatActivity {
@@ -29,14 +34,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new MainFragment()).commit();
-        }
-
         //need to initialize the variable here.
         mReceiver = new MyReceiver();
 
+
+        //setup button to send an intent for static registered receiver.
+       findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.ACTION1);
+                i.setPackage("edu.cs4730.broadcastdemo1"); //in API 26, it must be explicit now.
+                //since it's registered as a global (in the manifest), use sendBroadCast
+                //LocalBroadcastManager.getInstance(getContext()).sendBroadcast(i);
+                sendBroadcast(i);
+            }
+        });
+
+        //setup button to send an intent for dynamic registered receiver, which is registered in MainActivity.
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.ACTION2);
+                //since it's registered a local, use the LocalBroadcastManager.
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
+                //use this if registered as a global receiver.
+                //getActivity().sendBroadcast(i);
+                Log.v(TAG, "Should have sent the broadcast.");
+            }
+        });
     }
 
     @Override

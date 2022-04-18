@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+
+import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 import androidx.core.app.NotificationCompat;
 import android.util.Log;
@@ -30,7 +32,7 @@ public class MyJobIntentService extends JobIntentService {
     }
 
     @Override
-    protected void onHandleWork(Intent intent) {
+    protected void onHandleWork(@NonNull Intent intent) {
         // We have received work to do.  The system or framework is already
         // holding a wake lock for us at this point, so we can just go.
         int NotiID = 1;
@@ -40,6 +42,7 @@ public class MyJobIntentService extends JobIntentService {
             try {
                 Thread.sleep(60000);  // 1000 is one second, once a minute would be 60000
             } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -92,7 +95,7 @@ public class MyJobIntentService extends JobIntentService {
 
         notificationIntent.putExtra("mText", info);
 
-        PendingIntent contentIntent = PendingIntent.getActivity(context, notiID, notificationIntent, 0);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, notiID, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
         //create the notification
         Notification notif = new NotificationCompat.Builder(context, MainActivity.id)
