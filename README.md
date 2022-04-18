@@ -10,7 +10,7 @@ BroadCastReceiver examples
 
 `BroadcastBoot`: Receives a broadcast on boot, that starts a alarm (since background services are no longer allowed in Oreo).
 
-`BroadcastBoot2`: Receives a broadcast on boot, that starts a JobIntentService, which is allowed to run in the background.
+`BroadcastBoot2`: Receives a broadcast on boot, that starts a Worker, which is allowed to run in the background.
 
 ---
 
