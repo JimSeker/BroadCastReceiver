@@ -1,17 +1,25 @@
 package edu.cs4730.broadcastnoti;
 
 import java.util.Calendar;
+import java.util.Map;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.util.Log;
 import android.view.View;
@@ -22,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String ACTION = "edu.cs4730.bcr.noti";
     public static String id = "test_channel_01";
     static String TAG = "MainActivity";
+    ActivityResultLauncher<String[]> rpl;
+    private final String[] REQUIRED_PERMISSIONS = new String[]{Manifest.permission.POST_NOTIFICATIONS};
     NotificationManager nm;
     TextView logger;
 
@@ -31,6 +41,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // for notifications permission now required in api 33
+        //this allows us to check with multiple permissions, but in this case (currently) only need 1.
+        rpl = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
+            new ActivityResultCallback<Map<String, Boolean>>() {
+                @Override
+                public void onActivityResult(Map<String, Boolean> isGranted) {
+                    boolean granted = true;
+                    for (Map.Entry<String, Boolean> x : isGranted.entrySet()) {
+                        logthis(x.getKey() + " is " + x.getValue());
+                        if (!x.getValue()) granted = false;
+                    }
+                    if (granted)
+                        logthis("Permissions granted for api 33+");
+                }
+            }
+        );
+
 
         //check see if there is data in the bundle, ie launched from a notification!
         String info = "Nothing";
@@ -42,10 +70,9 @@ public class MainActivity extends AppCompatActivity {
             }  //something wrong here.
         }
 
-        Log.v("MainActivity", "info:" + info);
-
         logger = (TextView) findViewById(R.id.textView1);
-        logger.setText(info);
+        logthis(info);
+
         //setup button to send an intent for static registered receiver.
         findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         createchannel();
+        //for the new api 33+ notifications permissions.
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (!allPermissionsGranted()) {
+                rpl.launch(REQUIRED_PERMISSIONS);
+            }
+        }
     }
 
     public void setalarm() {
@@ -107,4 +140,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //ask for permissions when we start.
+    private boolean allPermissionsGranted() {
+        for (String permission : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void logthis(String msg) {
+        logger.append(msg + "\n");
+        Log.d(TAG, msg);
+    }
 }
