@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import edu.cs4730.broadcastdemo2.databinding.ActivityMainBinding;
+
 /**
  * this app will need to be run on emulator to test the varying pieces
  * unless you can charge and discharge your battery very quickly.
@@ -23,15 +25,16 @@ import androidx.appcompat.app.AppCompatActivity;
  * a normal app can know if it is charging or on battery, but not the level of the battery.
  */
 public class MainActivity extends AppCompatActivity {
-    TextView logger;
+    ActivityMainBinding binding;
     MyReceiver mReceiver = new MyReceiver();
     String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        logger = findViewById(R.id.textView1);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         //manual check.
         IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
@@ -45,15 +48,15 @@ public class MainActivity extends AppCompatActivity {
         float batteryPct = level * 100 / (float)scale;
 
         if (isCharging) {
-            logger.setText("status is Charging");
+            binding.logger.setText("status is Charging");
             // How are we charging?
             int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
             boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
-            if (usbCharge) logger.append("\n via the usb chargerbattery at "+ batteryPct);
+            if (usbCharge) binding.logger.append("\n via the usb chargerbattery at "+ batteryPct);
             boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
-            if (acCharge) logger.append("\n via the AC chargerbattery at "+ batteryPct);
+            if (acCharge) binding.logger.append("\n via the AC chargerbattery at "+ batteryPct);
         } else {
-            logger.setText("status is not Charging.  battery at "+ batteryPct);
+            binding.logger.setText("status is not Charging.  battery at "+ batteryPct);
         }
 
     }
@@ -123,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 mStatus = 4;
                 Log.v("myReceiver", "ac off");
             }
-            logger.setText("status is " + mStatus + info);
+            binding.logger.setText("status is " + mStatus + info);
         }
     }
 

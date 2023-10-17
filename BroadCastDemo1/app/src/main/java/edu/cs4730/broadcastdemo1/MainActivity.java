@@ -3,19 +3,21 @@ package edu.cs4730.broadcastdemo1;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import android.util.Log;
-import android.view.View;
+import edu.cs4730.broadcastdemo1.databinding.ActivityMainBinding;
 
 /**
  * A simple demo of broadcast receiver and custom intent.
  * The fragment has the code to send the broadcast.
- * 
+ * <p>
  * this code will register a dynamic intent-filter for Action2
  * action one is static registered in the manifest file.
- *
+ * <p>
  * Note, the local broadcast receiver is deprecated.  Instead you should be using a viewmodel with observers.
  * but it still works, so the example will continue.
  */
@@ -29,17 +31,20 @@ public class MainActivity extends AppCompatActivity {
     String TAG = "MainActivity";
 
     MyReceiver mReceiver;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         //need to initialize the variable here.
         mReceiver = new MyReceiver();
 
 
         //setup button to send an intent for static registered receiver.
-       findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+        binding.button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.ACTION1);
@@ -51,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //setup button to send an intent for dynamic registered receiver, which is registered in MainActivity.
-        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+        binding.button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.ACTION2);
@@ -82,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         //unregisterReceiver(mReceiver);
         Log.v(TAG, "receiver should be unregistered");
         super.onPause();
-
     }
 
 }

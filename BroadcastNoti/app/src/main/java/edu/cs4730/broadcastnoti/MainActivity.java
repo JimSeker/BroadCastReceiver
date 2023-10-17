@@ -25,6 +25,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import edu.cs4730.broadcastnoti.databinding.ActivityMainBinding;
+
 
 public class MainActivity extends AppCompatActivity {
     public static final String ACTION = "edu.cs4730.bcr.noti";
@@ -33,13 +35,14 @@ public class MainActivity extends AppCompatActivity {
     ActivityResultLauncher<String[]> rpl;
     private final String[] REQUIRED_PERMISSIONS = new String[]{Manifest.permission.POST_NOTIFICATIONS};
     NotificationManager nm;
-    TextView logger;
-
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         // for notifications permission now required in api 33
@@ -70,11 +73,10 @@ public class MainActivity extends AppCompatActivity {
             }  //something wrong here.
         }
 
-        logger = (TextView) findViewById(R.id.textView1);
         logthis(info);
 
         //setup button to send an intent for static registered receiver.
-        findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+        binding.button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setalarm();
@@ -151,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logthis(String msg) {
-        logger.append(msg + "\n");
+        binding.textView1.append(msg + "\n");
         Log.d(TAG, msg);
     }
 }
