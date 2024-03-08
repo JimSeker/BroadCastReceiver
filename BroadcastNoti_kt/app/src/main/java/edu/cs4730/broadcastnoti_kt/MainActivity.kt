@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         //---PendingIntent to launch receiver when the alarm triggers-
         //Intent notificationIntent = new Intent(getApplicationContext(), MyReceiver.class);
         val notificationIntent: Intent = Intent(Actions.ACTION)
-        notificationIntent.setPackage("edu.cs4730.broadcastnoti") //in API 26, it must be explicit now.
+        notificationIntent.setPackage("edu.cs4730.broadcastnoti_kt") //in API 26, it must be explicit now.
         notificationIntent.putExtra("NotifID", NotID)
 
         //Note there is only one difference in this code from the notificationdemo code.  and it's
