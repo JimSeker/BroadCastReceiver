@@ -2,15 +2,21 @@ BroadCastReceiver examples
 =================
 `eclipse/` is the examples for use in eclipse. This is no longer updated. The rest of the examples are in Android studio format.
 
-`BroadCastDemo1`: Simple implementation of a receiver with a static and dynamic registered intent-filter
+`BroadcastBoot`: (java) Receives a broadcast on boot, that starts a alarm (since background services are no longer allowed in Oreo).
 
-`BroadCastDemo2`: Setup to receive intents about battery status and power status.  it uses dynamic registered receivers to get the information.
+`BroadcastBoot2`: (java) Receives a broadcast on boot, that starts a Worker, which is allowed to run in the background.
 
-`BroadcastNoti`: A reimplementation of the [notification demo](https://github.com/JimSeker/notifications), but using only receivers for the broadcast.
+`BroadCastDemo1`: (java) Simple implementation of a receiver with a static and dynamic registered intent-filter
 
-`BroadcastBoot`: Receives a broadcast on boot, that starts a alarm (since background services are no longer allowed in Oreo).
+`BroadCastDemo1_kt`: (Kotlin) Simple implementation of a receiver with a static and dynamic registered intent-filter
 
-`BroadcastBoot2`: Receives a broadcast on boot, that starts a Worker, which is allowed to run in the background.
+`BroadCastDemo2`: (java) Setup to receive intents about battery status and power status.  it uses dynamic registered receivers to get the information.
+
+`BroadCastDemo2`: (Kotlin) Setup to receive intents about battery status and power status.  it uses dynamic registered receivers to get the information.
+
+`BroadcastNoti`: (Java) A reimplementation of the [notification demo](https://github.com/JimSeker/notifications), but using only receivers for the broadcast.
+
+`BroadcastNoti_kt`: (Kotlin) A reimplementation of the [notification demo](https://github.com/JimSeker/notifications), but using only receivers for the broadcast.
 
 ---
 
