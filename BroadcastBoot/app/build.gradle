@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         applicationId "edu.cs4730.broadcastboot"
-        minSdkVersion 26
+        minSdkVersion 28
         targetSdk 34
         versionCode="1"
         versionName="1.0"
