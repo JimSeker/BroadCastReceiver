@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:allowBackup="true"
@@ -24,7 +25,8 @@
         <receiver
             android:name=".MyReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:permission="android.permission.BIND_RECEIVER">
             <intent-filter>
                 <action android:name="edu.cs4730.bcr.mystaticevent" />
             </intent-filter>

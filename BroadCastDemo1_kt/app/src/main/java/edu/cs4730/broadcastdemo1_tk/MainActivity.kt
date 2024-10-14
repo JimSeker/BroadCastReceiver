@@ -1,10 +1,16 @@
 package edu.cs4730.broadcastdemo1_tk
 
+import android.Manifest
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import edu.cs4730.broadcastdemo1_tk.databinding.ActivityMainBinding
 
@@ -17,7 +23,8 @@ class MainActivity : AppCompatActivity() {
         const val ACTION2 = "edu.cs4730.bcr.mydyanicevent"
     }
 
-
+    private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.POST_NOTIFICATIONS)
+    lateinit var rpl: ActivityResultLauncher<Array<String>>
     var TAG = "MainActivity"
 
     private lateinit var mReceiver: MyReceiver
@@ -28,6 +35,17 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.getRoot())
+
+        rpl = registerForActivityResult<Array<String>, Map<String, Boolean>>(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { isGranted ->
+            var granted = true
+            for ((key, value) in isGranted) {
+                logthis("$key is $value")
+                if (!value) granted = false
+            }
+            if (granted) logthis("Permissions granted for api 33+")
+        }
 
         mReceiver = MyReceiver()
 
@@ -54,7 +72,11 @@ class MainActivity : AppCompatActivity() {
             //getActivity().sendBroadcast(i);
             Log.v(TAG, "Should have sent the broadcast.")
         }
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (!allPermissionsGranted()) {
+                rpl.launch(REQUIRED_PERMISSIONS)
+            }
+        }
     }
 
     public override fun onResume() {
@@ -76,5 +98,21 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
     }
 
+    //ask for permissions when we start.
+    private fun allPermissionsGranted(): Boolean {
+        for (permission in REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    permission
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                return false
+            }
+        }
+        return true
+    }
 
+    fun logthis(msg: String) {
+        Log.d(TAG, msg)
+    }
 }
