@@ -20,7 +20,8 @@
         <receiver
             android:name=".MyReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:permission="android.permission.BIND_RECEIVER">
             <intent-filter>
                 <action android:name="edu.cs4730.bcr.noti" />
             </intent-filter>
