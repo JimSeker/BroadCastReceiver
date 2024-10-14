@@ -23,7 +23,6 @@ import androidx.core.content.ContextCompat;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import edu.cs4730.broadcastnoti.databinding.ActivityMainBinding;
 
