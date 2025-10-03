@@ -29,6 +29,14 @@ import android.view.View;
 
 import edu.cs4730.broadcastnoti.databinding.ActivityMainBinding;
 
+/**
+ * This is an example of using a broadcast receiver to create a notification, but triggered by the alarm manager.
+ * So the flow is this: activity->alarm manager->receiver->notification->activity.
+ * For more on notifications, see JimSeker/notifications repository on github.
+ *
+ * Note the example will finish() the activity after setting the alarm
+ * It should work fine, but instead of 2 minutes it could be 3 ro 4.
+ */
 
 public class MainActivity extends AppCompatActivity {
     public static final String ACTION = "edu.cs4730.bcr.noti";
@@ -111,19 +119,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         //---PendingIntent to launch receiver when the alarm triggers-
-        //Intent notificationIntent = new Intent(getApplicationContext(), MyReceiver.class);
-        Intent notificationIntent = new Intent(MainActivity.ACTION);
+        Intent notificationIntent = new Intent(MainActivity.ACTION);  //action is in variable  above.
         notificationIntent.setPackage("edu.cs4730.broadcastnoti"); //in API 26, it must be explicit now.
         notificationIntent.putExtra("NotifID", NotID);
 
-        //Note there is only one difference in this code from the notificationdemo code.  and it's
-        //getBroadcast, instead getActivity..
         PendingIntent contentIntent = PendingIntent.getBroadcast(MainActivity.this, NotID, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
         Log.i(TAG, "Set alarm, I hope");
         //---sets the alarm to trigger---
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), contentIntent);
 
-        //sendBroadcast(notificationIntent);//let's see if it works... without the alarm.
         finish();  //exit the app.
     }
 

@@ -21,6 +21,15 @@ import androidx.core.view.WindowInsetsCompat
 import edu.cs4730.broadcastnoti_kt.databinding.ActivityMainBinding
 import java.util.Calendar
 
+/**
+ * This is an example of using a broadcast receiver to create a notification, but triggered by the alarm manager.
+ * So the flow is this: activity->alarm manager->receiver->notification->activity.
+ * For more on notifications, see JimSeker/notifications repository on github.
+
+ * Note the example will finish() the activity after setting the alarm
+ * It should work fine, but instead of 2 minutes it could be 3 or 4 minutes.
+ */
+
 class MainActivity : AppCompatActivity() {
     object Actions {
         const val ACTION = "edu.cs4730.bcr.noti"
@@ -57,10 +66,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (granted) logthis("Permissions granted for api 33+")
         }
-
-
-        //check see if there is data in the bundle, ie launched from a notification!
-
 
         //check see if there is data in the bundle, ie launched from a notification!
         var info = "Nothing"
@@ -99,8 +104,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //---PendingIntent to launch receiver when the alarm triggers-
-        //Intent notificationIntent = new Intent(getApplicationContext(), MyReceiver.class);
-        val notificationIntent: Intent = Intent(Actions.ACTION)
+        val notificationIntent: Intent = Intent(Actions.ACTION)  //action is in variable above.
         notificationIntent.setPackage("edu.cs4730.broadcastnoti_kt") //in API 26, it must be explicit now.
         notificationIntent.putExtra("NotifID", NotID)
 

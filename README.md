@@ -14,9 +14,9 @@ BroadCastReceiver examples
 
 `BroadCastDemo2`: (Kotlin) Setup to receive intents about battery status and power status.  it uses dynamic registered receivers to get the information.
 
-`BroadcastNoti`: (Java) A reimplementation of the [notification demo](https://github.com/JimSeker/notifications), but using only receivers for the broadcast.
+`BroadcastNoti`: (Java) The activity sends a broadcast to the reciever (2 minute later using the alarmmanager) and show a notification. For more information about notifications see:  [notification](https://github.com/JimSeker/notifications)
 
-`BroadcastNoti_kt`: (Kotlin) A reimplementation of the [notification demo](https://github.com/JimSeker/notifications), but using only receivers for the broadcast.
+`BroadcastNoti_kt`: (Kotlin) The activity sends a broadcast to the reciever (2 minute later using the alarmmanager) and show a notification. For more information about notifications see:  [notification](https://github.com/JimSeker/notifications)
 
 ---
 
