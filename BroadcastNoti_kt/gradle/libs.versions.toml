@@ -1,10 +1,9 @@
 [versions]
-agp = "8.13.0"
-kotlin = "2.2.20"
-coreKtx = "1.17.0"
-appcompat = "1.7.1"
-activity = "1.11.0"
-material = "1.13.0"
+agp = "9.4.0"
+coreKtx = "1.19.0"
+appcompat = "1.8.0"
+activity = "1.13.0"
+material = "1.14.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -14,5 +13,4 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
-jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 

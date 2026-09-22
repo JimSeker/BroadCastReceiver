@@ -1,0 +1,15 @@
+[versions]
+activity = "1.13.0"
+agp = "9.4.0"
+appcompat = "1.8.0"
+localbroadcastmanager = "1.1.0"
+material = "1.14.0"
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+
+[libraries]
+androidx-activity = { module = "androidx.activity:activity", version.ref = "activity" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-localbroadcastmanager = { module = "androidx.localbroadcastmanager:localbroadcastmanager", version.ref = "localbroadcastmanager" }
+google-material = { module = "com.google.android.material:material", version.ref = "material" }

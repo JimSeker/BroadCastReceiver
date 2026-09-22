@@ -1,0 +1,13 @@
+[versions]
+agp = "9.4.0"
+appcompat = "1.8.0"
+activity = "1.13.0"
+material = "1.14.0"
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+
+[libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-activity = { module = "androidx.activity:activity", version.ref = "activity" }
+google-material = { module = "com.google.android.material:material", version.ref = "material" }
